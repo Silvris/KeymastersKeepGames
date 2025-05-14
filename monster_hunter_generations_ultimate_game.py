@@ -146,7 +146,7 @@ class MonsterHunterGenerationsUltimateGame(Game):
                 weight=2,
             ),
             GameObjectiveTemplate(
-                label="Hunt 2 STAGE monsters",
+                label="Hunt 2 monsters in the STAGE",
                 data={
                     "STAGE": (self.stages, 1),
                 },
@@ -155,7 +155,7 @@ class MonsterHunterGenerationsUltimateGame(Game):
                 weight=3,
             ),
             GameObjectiveTemplate(
-                label="Hunt 3 STAGE monsters",
+                label="Hunt 3 monsters in the STAGE",
                 data={
                     "STAGE": (self.stages, 1),
                 },
@@ -200,30 +200,17 @@ class MonsterHunterGenerationsUltimateGame(Game):
                 is_difficult=True,
                 weight=1,
             ),
-            GameObjectiveTemplate(
-                label="Complete a Level 140 MONSTER Guild Quest",
-                data={
-                    "MONSTER": (self.monsters, 1),
-                },
-                is_time_consuming=True,
-                is_difficult=True,
-                weight=1,
-            ),
         ]
 
         return templates
 
     @property
     def include_rank_dependent_monsters(self) -> bool:
-        return bool(self.archipelago_options.monster_hunter_4_ultimate_include_rank_dependent_monsters.value)
-
-    @property
-    def include_apex_monsters(self):
-        return bool(self.archipelago_options.monster_hunter_4_ultimate_include_apex.value)
+        return bool(self.archipelago_options.monster_hunter_generations_ultimate_include_rank_dependent_monsters.value)
 
     @property
     def include_dlc(self):
-        return bool(self.archipelago_options.monster_hunter_4_ultimate_include_dlc.value)
+        return bool(self.archipelago_options.monster_hunter_generations_ultimate_include_dlc.value)
 
     @staticmethod
     def monsters_base() -> List[str]:
@@ -330,7 +317,7 @@ class MonsterHunterGenerationsUltimateGame(Game):
         ]
 
     def monsters(self) -> List[str]:
-        monsters: List[str] = self.monsters_base[:]
+        monsters: List[str] = self.monsters_base()
 
         if self.include_rank_dependent_monsters:
             monsters.extend(self.monsters_rank())
@@ -351,6 +338,9 @@ class MonsterHunterGenerationsUltimateGame(Game):
             "Rusted Kushala Daora",
             "Teostra",
             "Chameleos",
+            "Lao-Shan Lung",
+            "Nakarkos",
+            "Valstrax",
             "Fatalis",
             "Crimson Fatalis",
             "Old Fatalis"
@@ -391,108 +381,144 @@ class MonsterHunterGenerationsUltimateGame(Game):
     @functools.cached_property
     def stages_base(self) -> List[str]:
         return [
+            "Jurassic Frontier",
+            "Verdant Hills",
+            "Arctic Ridge",
+            "Misty Peaks",
+            "Dunes",
+            "Deserted Island",
+            "Marshlands",
+            "Volcano",
             "Ancestral Steppe",
+            "Volcanic Hollow",
             "Primal Forest",
             "Frozen Seaway",
-            "Volcanic Hollow",
-            "Dunes",
+            "Desert",
+            "Jungle",
+            "Ruined Pinnacle",
             "Sanctuary",
+            "Forlorn Arena",
+            "Sacred Pinnacle",
             "Ingle Isle",
             "Polar Field",
-            "Battlequarters",
-            "Forlorn Arena",
+            "Wyvern's End",
+            "Castle Schrade",
+            "Fortress",
+            "Forlorn Citadel",
+            "Arena",
+            "V. Slayground",
+            "F. Slayground",  # TODO: find out wth F and V stand for
         ]
 
     def stages(self) -> List[str]:
         stages: List[str] = self.stages_base[:]
-
-        if self.include_dlc:
-            stages.append("Castle Schrade")
 
         return sorted(stages)
 
     @functools.cached_property
     def drops_base(self) -> List[str]:
         return [
-            "Bird Wyvern Gem",
-            "Fey Wyvern Gem",
-            "Beast Gem",
             "Wyvern Gem",
             "Lrg Wyvern Gem",
-            "Elder Dragon Gem",
-            "Lrg Elder Dragon Gem",
-            "Rathian Mantle",
-            "Rathalos Mantle",
-            "Rajang Heart",
-            "Ghoulish Gold Gorer",
-            "Zinogre Skymerald",
-            "S. Zinogre Skymerald",
-            "Brach Pallium",
-            "Gravios Pallium",
-            "B. Gravios Pallium",
-            "Tigrex Mantle",
-            "S. Magala Mantle",
-            "Seregios Lens",
-            "Deviljho Crook",
-            "Silverpeak Corona",
-            "Ukanlos Stone",
-            "Wartorn Dragonsphire",
-            "Ghoulish Gold Horn",
-            "Najarala Medulla",
-            "Rathian Ruby",
-            "Rathalos Ruby",
-            "Zinogre Jasper",
-            "S. Zinogre Jasper",
-            "Brach Gem",
-            "Gravios Medulla",
-            "Tigrex Jaw",
-            "Pulsating Blastheart",
-            "Gore Magala Nyctgem",
-            "S. Magala Phosgem",
-            "Seregios Dissenter",
-            "Deviljho Gem",
-            "Daora Gem",
-            "Teostra Gem",
-            "Akantor Gem",
-            "Skyblade Gem",
-            "Chameleos Gem",
-            "Najarala Marrow",
+            "Bird Wyvern Gem",
+            "Fey Wyvern Gem",
+            "S. Queen Extract",
+            "D.S. Queen Concentrate",
+            "Ahtal Ka Alluring Gem",
+            "Giant Beak",
+            "Splendid Beak",
+            "Rajang Tail",
+            "Rajang Hardhorn",
+            "Rajang Nerve",
+            "Gammoth Ice Orb",
+            "Gammoth Pallium",
+            "Lagiacrus Plate",
+            "Lagiacrus Sapphire",
+            "Lagiacrus Mantle",
+            "Mizutsune Plate",
+            "Mizutsune Water Orb",
+            "Mizutsune Pallium",
             "Chilling Beak",
-            "Rathian Plate",
-            "Rathalos Plate",
-            "Rath Marrow",
-            "Zinogre Plate",
+            "Heart-stopping Beak",
+            "Deviljho Gem",
+            "Deviljho Crook",
+            "Uragaan Marrow",
+            "Uragaan Ruby",
+            "Uragaan Pallium",
+            "Duram Sacrum",
             "Brach Marrow",
+            "Brach Gem",
+            "Brach Pallium",
+            "Glavenus Plate",
+            "Glavenus Fire Orb",
+            "Glavenus Pallium",
+            "Nargacuga Marrow",
+            "Narga Medulla",
+            "Nargacuga Mantle",
+            "Rathian Plate",
+            "Rathian Ruby",
+            "Rathian Mantle",
+            "Rathalos Plate",
+            "Rathalos Ruby",
+            "Rathalos Mantle",
+            "Rath Marrow",
+            "Rath Medulla",
+            "Basarios Pallium",
+            "Gravios Pallium",
+            "Khezu Special Cut",
+            "Tigrex Scalp",
+            "Tigrex Maw",
+            "Tigrex Mantle",
+            "Seregios Dissenter",
+            "Seregios Lens",
+            "Astalos Plate",
+            "Astalos Electrogem",
+            "Astalos Mantle",
+            "Blos Medulla",
+            "Akantor Gem",
+            "Ukanlos Gem",
             "Gore Magala Plate",
+            "Gore Magala Nyctgem",
+            "Gore Magala Mantle",
+            "Zinogre Plate",
+            "Zinogre Jasper",
+            "Zinogre Skymerald",
             "S. Magala Plate",
-            "Earth Dragongem",
-
+            "S. Magala Phosgem",
+            "S. Magala Mantle",
+            "Red Dragon Mindstone",
+            "Ruby Dragon Mindstone",
+            "Daora Gem",
+            "Chameleos Gem",
+            "Teostra Gem",
+            "Lao-Shan Mantle",
         ]
 
     @functools.cached_property
     def drops_rank_base(self) -> List[str]:
         return [
+            "Lrg Elder Dragon Gem",
+            "Contrary Scale",
+            "Rajang Heart",
+            "Ghoulish Gold Gorer",
             "Immortal Reactor",
-            "Dire Blastheart",
-            "Gore Magala Mantle",
             "Conquest Sphere",
-            "Skyblade Drgnsphire",
+            "Ukanlos Stone",
+            "Azure Dragongem",
+            "Azure Dragonsphire",
+            "Heavenly Dragongem",
+            "Heavenly Dragonsphire",
+            "Nakarkos Soul Orb",
+            "Nakarkos SecretSoulOrb",
+
         ]
 
-    @functools.cached_property
-    def drops_g_dlc(self) -> List[str]:
-        return [
-            "Earth Dragonsphire",
-        ]
 
     def drops(self) -> List[str]:
         drops: List[str] = self.drops_base[:]
 
         if self.include_rank_dependent_monsters:
             drops.extend(self.drops_rank_base)
-
-        if self.include_dlc:
-            drops.extend(self.drops_g_dlc)
 
         return sorted(drops)
 
@@ -501,64 +527,74 @@ class MonsterHunterGenerationsUltimateGame(Game):
         return [
             "Garuga Tail",
             "Garuga Lash",
+            "R.Ludroth Tail",
+            "R.Ludroth Lash",
+            "Lagiacrus Tail",
+            "Lagiacrus Flail",
+            "Agnaktor Tail",
+            "Barroth Tail",
+            "Barroth Lash",
             "Brach Tail",
             "Brach Lash",
-            "Deviljho Tail",
-            "Deviljho Flail",
-            # no basarios
-            # no gravios
-            # no rathian?
+            "Duram Tailcase+",
+            "Duram Hardtail",
+            "Nargacuga Tail",
+            "Nargacuga Lash",
+            "Barioth Tail",
+            "Barioth Lash",
             "Rathalos Tail",
             "Rathalos Lash",
-            "A. Rathalos Tail",
-            "A. Rathalos Lash",
             "S. Rathalos Tail",
-            "Tigrex Tail",
-            "Tigrex Lash",
-            "M. Tigrex Tail",
-            "Diablos Tailcase+",
-            "Seregios Impaler",
-            "Seregios Impaler+",
-            "Gore Magala Tail",
-            "Gore Magala Lash",
-            "Akantor Tail",
-            "Ukanlos Tail",
-            "Ukanlos Flail",
             "Zinogre Tail",
             "Zinogre Lash",
-            "S. Zinogre Tail",
-            "S. Zinogre Lash",
+            "Astalos Scissortail",
+            "Astalos Scissortailblade",
+            "Mizutsune Tail",
+            "Purple Mizutsune Tail",
+            "Soulseer Tail",
+            "Glavenus Tail",
+            "Glavenus Tailedge",
+            "Tigrex Tail",
+            "Tigrex Lash",
+            "Diablos Tailcase",
+            "Diablos Tailcase+",
+            "Gore Magala Tail",
+            "Gore Magala Lash",
             "S. Magala Tail",
             "S. Magala Lash",
+            "Deviljho Tail",
+            "Deviljho Flail",
             "Daora Tail",
             "Daora Lash",
             "Teostra Tail",
             "Teostra Lash",
+            "Chameleos Tail",
             "Chameleos Lash",
-            "Gogmazios Briartail",
+            "Akantor Tail",
+            "Akantor Flail",
+            "Ukanlos Tail",
+            "Ukanlos Flail",
+            "Alatreon Tail",
+            "Alatreo Diretail",
+            "Amatsu Tail",
+            "Amatsu Stormtail",
+            "Valstrax Tail",
+            "Valstrax Helixtail",
+
         ]
 
     @functools.cached_property
     def tails_rank_base(self) -> List[str]:
         return [
-            "M. Tigrex Lash",
-            "Akantor Flail",
+            "S. Rathalos Lash",
         ]
 
-    @functools.cached_property
-    def tails_g_dlc(self) -> List[str]:
-        return [
-            "S. Rathalos Lash"
-        ]
 
     def tails(self) -> List[str]:
         tails: List[str] = self.tails_base[:]
 
         if self.include_rank_dependent_monsters:
             tails.extend(self.tails_rank_base)
-
-        if self.include_dlc:
-            tails.extend(self.tails_g_dlc)
 
         return sorted(tails)
 

@@ -146,7 +146,7 @@ class MonsterHunter4UltimateGame(Game):
                 weight=2,
             ),
             GameObjectiveTemplate(
-                label="Hunt 2 STAGE monsters",
+                label="Hunt 2 monsters in the STAGE",
                 data={
                     "STAGE": (self.stages, 1),
                 },
@@ -155,7 +155,7 @@ class MonsterHunter4UltimateGame(Game):
                 weight=3,
             ),
             GameObjectiveTemplate(
-                label="Hunt 3 STAGE monsters",
+                label="Hunt 3 monsters in the STAGE",
                 data={
                     "STAGE": (self.stages, 1),
                 },
@@ -223,7 +223,7 @@ class MonsterHunter4UltimateGame(Game):
 
     @property
     def include_dlc(self):
-        return bool(self.archipelago_options.monster_hunter_4_ultimate_include_dlc.value)
+        return bool(self.archipelago_options.monster_hunter_4_ultimate_include_dlcs.value)
 
     def monsters_base(self) -> List[str]:
         monsters = [
@@ -326,7 +326,7 @@ class MonsterHunter4UltimateGame(Game):
         return monsters
 
     def monsters(self) -> List[str]:
-        monsters: List[str] = self.monsters_base[:]
+        monsters: List[str] = self.monsters_base()
 
         if self.include_rank_dependent_monsters:
             monsters.extend(self.monsters_rank())
@@ -431,6 +431,7 @@ class MonsterHunter4UltimateGame(Game):
             "Lrg Elder Dragon Gem",
             "Rathian Mantle",
             "Rathalos Mantle",
+            "Rajang Nerve",
             "Rajang Heart",
             "Ghoulish Gold Gorer",
             "Zinogre Skymerald",
@@ -450,10 +451,10 @@ class MonsterHunter4UltimateGame(Game):
             "Rathian Ruby",
             "Rathalos Ruby",
             "Zinogre Jasper",
-            "S. Zinogre Jasper",
+            "S. Zinogre Umbrage",
             "Brach Gem",
             "Gravios Medulla",
-            "Tigrex Jaw",
+            "Tigrex Maw",
             "Pulsating Blastheart",
             "Gore Magala Nyctgem",
             "S. Magala Phosgem",
@@ -466,6 +467,7 @@ class MonsterHunter4UltimateGame(Game):
             "Chameleos Gem",
             "Najarala Marrow",
             "Chilling Beak",
+            "Heart-stopping Beak",
             "Rathian Plate",
             "Rathalos Plate",
             "Rath Marrow",
@@ -474,7 +476,15 @@ class MonsterHunter4UltimateGame(Game):
             "Gore Magala Plate",
             "S. Magala Plate",
             "Earth Dragongem",
-
+            "S. Queen Extract",
+            "S. Queen Concentrate",
+            "D.S. Queen Concentrate",
+            "Giant Beak",
+            "Splendid Beak",
+            "Tigrex Scalp",
+            "Monoblos Heart",
+            "Gore Magala Mantle",
+            "Skyblade Gem",
         ]
 
     @functools.cached_property
@@ -482,7 +492,7 @@ class MonsterHunter4UltimateGame(Game):
         return [
             "Immortal Reactor",
             "Dire Blastheart",
-            "Gore Magala Mantle",
+            "Contrary Scale",
             "Conquest Sphere",
             "Skyblade Drgnsphire",
         ]
